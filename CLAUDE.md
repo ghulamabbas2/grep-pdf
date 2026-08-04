@@ -8,6 +8,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Most of the current code is scaffolding: the backend exposes only `/api/health`, and the frontend landing page renders that health status. New feature work generally means adding backend routes under `backend/app/` and UI in `frontend/src/`.
 
+## Live Docs (Context7)
+
+Before writing code that uses **FastAPI, SQLAlchemy, Alembic, pgvector, LangChain, Pydantic, Clerk, React Router, or Vite**, pull current documentation through Context7 first. Do not rely on training data for API signatures, configuration, or version-specific behavior — it may be stale relative to the versions this project pins.
+
+If Context7 has no entry for one of these libraries, say so explicitly before proceeding on training data alone.
+
 ## Commands
 
 Run these from the repo root unless noted.
