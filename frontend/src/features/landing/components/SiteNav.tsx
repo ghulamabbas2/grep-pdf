@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import type { CSSProperties } from 'react'
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
 import { Button } from '../../../components/ui/Button'
 import { CONTAINER, PAD_X } from '../data'
 import logoUrl from '../../../assets/logo.svg'
@@ -9,6 +11,17 @@ const NAV_LINKS = [
   { href: '#pricing', label: 'Pricing' },
   { href: '#faq', label: 'FAQ' },
 ]
+
+// "Sign in" reads as a text link but must be a real button for Clerk to bind onto.
+const signInLinkStyle: CSSProperties = {
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  padding: 0,
+  fontFamily: 'var(--font-body)',
+  fontWeight: 500,
+  color: 'var(--text-body)',
+}
 
 export function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -51,12 +64,24 @@ export function SiteNav() {
         </nav>
         <div style={{ flex: 1 }} />
         <div className="gp-nav-actions" style={{ gap: 16, alignItems: 'center' }}>
-          <a href="#" style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-body)' }}>
-            Sign in
-          </a>
-          <Button variant="primary" size="sm">
-            Upload a PDF
-          </Button>
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button type="button" style={{ ...signInLinkStyle, fontSize: 14 }}>
+                Sign in
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <Button variant="primary" size="sm">
+                Get started
+              </Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <Button variant="primary" size="sm">
+              Upload a PDF
+            </Button>
+            <UserButton />
+          </Show>
         </div>
         <button
           type="button"
@@ -118,17 +143,26 @@ export function SiteNav() {
             </a>
           ))}
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', paddingTop: 14 }}>
-            <a
-              href="#"
-              onClick={closeMenu}
-              style={{ fontSize: 15, fontWeight: 500, color: 'var(--text-body)' }}
-            >
-              Sign in
-            </a>
-            <div style={{ flex: 1 }} />
-            <Button variant="primary" size="sm">
-              Upload a PDF
-            </Button>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button type="button" onClick={closeMenu} style={{ ...signInLinkStyle, fontSize: 15 }}>
+                  Sign in
+                </button>
+              </SignInButton>
+              <div style={{ flex: 1 }} />
+              <SignUpButton mode="modal">
+                <Button variant="primary" size="sm">
+                  Get started
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+              <div style={{ flex: 1 }} />
+              <Button variant="primary" size="sm">
+                Upload a PDF
+              </Button>
+            </Show>
           </div>
         </div>
       )}

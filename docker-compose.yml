@@ -1,0 +1,23 @@
+# Local Postgres with the pgvector extension for grep-pdf.
+# Start with:  docker compose up -d
+# Published on host port 5433 (5432 is often taken by a native Postgres).
+# Matches backend/.env DATABASE_URL (postgres/postgres @ :5433, db "grep_pdf").
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: grep_pdf
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d grep_pdf"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

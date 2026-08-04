@@ -1,0 +1,177 @@
+- generic [ref=f18e3]:
+  - banner [ref=f18e4]:
+    - generic [ref=f18e5]:
+      - link [ref=f18e6] [cursor=pointer]:
+        - /url: "#top"
+        - img "grep.pdf" [ref=f18e7]
+      - navigation [ref=f18e8]:
+        - link "How it works" [ref=f18e9] [cursor=pointer]:
+          - /url: "#how"
+        - link "Features" [ref=f18e10] [cursor=pointer]:
+          - /url: "#features"
+        - link "Pricing" [ref=f18e11] [cursor=pointer]:
+          - /url: "#pricing"
+        - link "FAQ" [ref=f18e12] [cursor=pointer]:
+          - /url: "#faq"
+  - generic [ref=f18e14]:
+    - generic [ref=f18e15]:
+      - generic [ref=f18e16]: "> grep your documents"
+      - heading "Stop scrolling. Ask your PDF" [level=1] [ref=f18e17]: Stop scrolling.Ask your PDF
+      - paragraph [ref=f18e19]: Upload a document and get the answer — with the exact line it came from. Built for devs, students, and researchers.
+      - generic [ref=f18e20]:
+        - button "Upload a PDF" [ref=f18e21] [cursor=pointer]
+        - button "See a demo" [ref=f18e22] [cursor=pointer]
+      - generic [ref=f18e23]:
+        - generic [ref=f18e24]: "> no card required"
+        - generic [ref=f18e25]: "> 5 free documents"
+        - generic [ref=f18e26]: "> docs stay yours"
+    - generic [ref=f18e28]:
+      - generic [ref=f18e29]: refund-policy.pdf
+      - generic [ref=f18e34]:
+        - generic [ref=f18e35]: What's the refund window?
+        - generic [ref=f18e36]: searching the document…
+  - generic [ref=f18e43]:
+    - generic [ref=f18e44]: ">"
+    - generic [ref=f18e45]: trusted by engineers, PhD candidates & legal teams
+    - generic [ref=f18e46]: ·
+    - generic [ref=f18e47]: 2.4M pages searched
+    - generic [ref=f18e48]: ·
+    - generic [ref=f18e49]: avg answer in 1.3s
+  - generic [ref=f18e51]:
+    - generic [ref=f18e52]:
+      - generic [ref=f18e53]: "> how it works"
+      - heading "Three steps. That's it." [level=2] [ref=f18e54]
+      - paragraph [ref=f18e55]: No setup. No prompt engineering. Just ask.
+    - generic [ref=f18e56]:
+      - generic [ref=f18e57]:
+        - generic [ref=f18e58]: "01"
+        - generic [ref=f18e59]: Upload
+        - generic [ref=f18e60]: Drop any PDF — contracts, papers, specs, textbooks. Indexed in seconds.
+      - generic [ref=f18e61]:
+        - generic [ref=f18e62]: "02"
+        - generic [ref=f18e63]: Ask
+        - generic [ref=f18e64]: Type a question in plain language. No scrolling, no Ctrl-F guessing.
+      - generic [ref=f18e65]:
+        - generic [ref=f18e66]: "03"
+        - generic [ref=f18e67]: Get the line
+        - generic [ref=f18e68]: Every answer comes with the exact passage and page it was pulled from.
+  - generic [ref=f18e71]:
+    - generic [ref=f18e72]:
+      - generic [ref=f18e73]: "> the answer, and the line"
+      - heading "Never guess where an answer came from." [level=2] [ref=f18e74]
+      - paragraph [ref=f18e75]: Every response points back to the exact passage and page. Click the citation, jump to the highlight. No hallucinated sources — if it's not in the doc, grep.pdf says so.
+    - generic [ref=f18e77]:
+      - generic [ref=f18e78]: spec-v2.pdf · p.8
+      - paragraph [ref=f18e79]:
+        - text: The service level agreement guarantees
+        - mark [ref=f18e80]: 99.95% uptime
+        - text: ", measured monthly, excluding scheduled maintenance windows announced"
+        - mark [ref=f18e81]: at least 48 hours in advance
+        - text: .
+  - generic [ref=f18e83]:
+    - generic [ref=f18e84]:
+      - generic [ref=f18e85]: "> features"
+      - heading "Built like a tool, not a toy." [level=2] [ref=f18e86]
+    - generic [ref=f18e87]:
+      - generic [ref=f18e90]:
+        - generic [ref=f18e91]: Citations, always
+        - generic [ref=f18e92]: Every answer links to the exact line and page. No hallucinated sources, no guessing.
+      - generic [ref=f18e95]:
+        - generic [ref=f18e96]: Built for long docs
+        - generic [ref=f18e97]: An 80-page spec is the same effort as one page. Ask across the whole document.
+      - generic [ref=f18e100]:
+        - generic [ref=f18e101]: Dev-grade speed
+        - generic [ref=f18e102]: Indexing and answers in seconds. It feels like grep, because it basically is.
+      - generic [ref=f18e105]:
+        - generic [ref=f18e106]: Your docs stay yours
+        - generic [ref=f18e107]: Files are private to your workspace and deleted on request. No training on your data.
+  - generic [ref=f18e109]:
+    - generic [ref=f18e110]:
+      - generic [ref=f18e111]: "> pricing"
+      - heading "Simple pricing. Free to start." [level=2] [ref=f18e112]
+      - generic [ref=f18e113]:
+        - button "Monthly" [ref=f18e114] [cursor=pointer]
+        - button "Annual −25%" [ref=f18e115] [cursor=pointer]
+    - generic [ref=f18e116]:
+      - generic [ref=f18e117]:
+        - generic [ref=f18e118]: Free
+        - generic [ref=f18e119]: For trying it out
+        - generic [ref=f18e120]: $0
+        - generic [ref=f18e122]: Free forever
+        - button "Upload a PDF" [ref=f18e124] [cursor=pointer]
+        - list [ref=f18e125]:
+          - listitem [ref=f18e126]:
+            - generic [ref=f18e129]: 5 documents
+          - listitem [ref=f18e130]:
+            - generic [ref=f18e133]: 50 questions / month
+          - listitem [ref=f18e134]:
+            - generic [ref=f18e137]: Citations on every answer
+          - listitem [ref=f18e138]:
+            - generic [ref=f18e141]: Community support
+      - generic [ref=f18e142]:
+        - generic [ref=f18e143]: Most popular
+        - generic [ref=f18e145]: Pro
+        - generic [ref=f18e146]: For daily drivers
+        - generic [ref=f18e147]:
+          - generic [ref=f18e148]: $12
+          - generic [ref=f18e149]: /mo
+        - generic [ref=f18e150]: per user, billed monthly
+        - button "Start Pro" [ref=f18e152] [cursor=pointer]
+        - list [ref=f18e153]:
+          - listitem [ref=f18e154]:
+            - generic [ref=f18e157]: Unlimited documents
+          - listitem [ref=f18e158]:
+            - generic [ref=f18e161]: Unlimited questions
+          - listitem [ref=f18e162]:
+            - generic [ref=f18e165]: Priority indexing
+          - listitem [ref=f18e166]:
+            - generic [ref=f18e169]: Export answers + citations
+          - listitem [ref=f18e170]:
+            - generic [ref=f18e173]: Email support
+      - generic [ref=f18e174]:
+        - generic [ref=f18e175]: Team
+        - generic [ref=f18e176]: For research groups
+        - generic [ref=f18e177]:
+          - generic [ref=f18e178]: $29
+          - generic [ref=f18e179]: /mo
+        - generic [ref=f18e180]: per user, billed monthly
+        - button "Contact sales" [ref=f18e182] [cursor=pointer]
+        - list [ref=f18e183]:
+          - listitem [ref=f18e184]:
+            - generic [ref=f18e187]: Everything in Pro
+          - listitem [ref=f18e188]:
+            - generic [ref=f18e191]: Shared workspaces
+          - listitem [ref=f18e192]:
+            - generic [ref=f18e195]: Admin controls
+          - listitem [ref=f18e196]:
+            - generic [ref=f18e199]: SSO / SAML
+          - listitem [ref=f18e200]:
+            - generic [ref=f18e203]: Priority support
+  - generic [ref=f18e205]:
+    - generic [ref=f18e206]:
+      - generic [ref=f18e207]: "> faq"
+      - heading "Questions, answered." [level=2] [ref=f18e208]
+    - generic [ref=f18e209]:
+      - generic [ref=f18e210]:
+        - button "Where do the answers come from?" [expanded] [ref=f18e211] [cursor=pointer]
+        - generic [ref=f18e216]: Every answer is pulled straight from your document and shown with the exact line and page it came from. If the answer isn’t in the doc, grep.pdf tells you — no invented sources.
+      - button "What file types can I upload?" [ref=f18e218] [cursor=pointer]
+      - button "Do you train on my documents?" [ref=f18e224] [cursor=pointer]
+      - button "How fast is it?" [ref=f18e230] [cursor=pointer]
+      - button "Is there a free plan?" [ref=f18e236] [cursor=pointer]
+  - generic [ref=f18e243]:
+    - generic [ref=f18e244]: "> ready?"
+    - heading "Ask. Get the answer and the line it came from." [level=2] [ref=f18e245]
+    - paragraph [ref=f18e246]: Free for your first 5 documents. No card required.
+    - button "Upload a PDF" [ref=f18e248] [cursor=pointer]
+  - contentinfo [ref=f18e249]:
+    - generic [ref=f18e250]:
+      - img "grep.pdf" [ref=f18e251]
+      - generic [ref=f18e252]: grep your documents · © 2026
+      - generic [ref=f18e253]:
+        - link "Privacy" [ref=f18e254] [cursor=pointer]:
+          - /url: "#"
+        - link "Terms" [ref=f18e255] [cursor=pointer]:
+          - /url: "#"
+        - link "Docs" [ref=f18e256] [cursor=pointer]:
+          - /url: "#"

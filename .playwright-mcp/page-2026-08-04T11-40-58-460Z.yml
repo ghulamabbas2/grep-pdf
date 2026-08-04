@@ -1,0 +1,220 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link [ref=e6] [cursor=pointer]:
+          - /url: "#top"
+          - img "grep.pdf" [ref=e7]
+        - navigation [ref=e8]:
+          - link "How it works" [ref=e9] [cursor=pointer]:
+            - /url: "#how"
+          - link "Features" [ref=e10] [cursor=pointer]:
+            - /url: "#features"
+          - link "Pricing" [ref=e11] [cursor=pointer]:
+            - /url: "#pricing"
+          - link "FAQ" [ref=e12] [cursor=pointer]:
+            - /url: "#faq"
+        - generic [ref=e257]:
+          - button "Sign in" [ref=e258] [cursor=pointer]
+          - button "Get started" [ref=e259] [cursor=pointer]
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: "> grep your documents"
+        - heading "Stop scrolling. Ask your PDF" [level=1] [ref=e17]: Stop scrolling.Ask your PDF
+        - paragraph [ref=e19]: Upload a document and get the answer — with the exact line it came from. Built for devs, students, and researchers.
+        - generic [ref=e20]:
+          - button "Upload a PDF" [ref=e21] [cursor=pointer]
+          - button "See a demo" [ref=e22] [cursor=pointer]
+        - generic [ref=e23]:
+          - generic [ref=e24]: "> no card required"
+          - generic [ref=e25]: "> 5 free documents"
+          - generic [ref=e26]: "> docs stay yours"
+      - generic [ref=e28]:
+        - generic [ref=e29]: refund-policy.pdf
+        - generic [ref=e34]:
+          - generic [ref=e35]: What's the refund window?
+          - generic [ref=e36]: searching the document…
+    - generic [ref=e43]:
+      - generic [ref=e44]: ">"
+      - generic [ref=e45]: trusted by engineers, PhD candidates & legal teams
+      - generic [ref=e46]: ·
+      - generic [ref=e47]: 2.4M pages searched
+      - generic [ref=e48]: ·
+      - generic [ref=e49]: avg answer in 1.3s
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: "> how it works"
+        - heading "Three steps. That's it." [level=2] [ref=e54]
+        - paragraph [ref=e55]: No setup. No prompt engineering. Just ask.
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: "01"
+          - generic [ref=e59]: Upload
+          - generic [ref=e60]: Drop any PDF — contracts, papers, specs, textbooks. Indexed in seconds.
+        - generic [ref=e61]:
+          - generic [ref=e62]: "02"
+          - generic [ref=e63]: Ask
+          - generic [ref=e64]: Type a question in plain language. No scrolling, no Ctrl-F guessing.
+        - generic [ref=e65]:
+          - generic [ref=e66]: "03"
+          - generic [ref=e67]: Get the line
+          - generic [ref=e68]: Every answer comes with the exact passage and page it was pulled from.
+    - generic [ref=e71]:
+      - generic [ref=e72]:
+        - generic [ref=e73]: "> the answer, and the line"
+        - heading "Never guess where an answer came from." [level=2] [ref=e74]
+        - paragraph [ref=e75]: Every response points back to the exact passage and page. Click the citation, jump to the highlight. No hallucinated sources — if it's not in the doc, grep.pdf says so.
+      - generic [ref=e77]:
+        - generic [ref=e78]: spec-v2.pdf · p.8
+        - paragraph [ref=e79]:
+          - text: The service level agreement guarantees
+          - mark [ref=e80]: 99.95% uptime
+          - text: ", measured monthly, excluding scheduled maintenance windows announced"
+          - mark [ref=e81]: at least 48 hours in advance
+          - text: .
+    - generic [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]: "> features"
+        - heading "Built like a tool, not a toy." [level=2] [ref=e86]
+      - generic [ref=e87]:
+        - generic [ref=e90]:
+          - generic [ref=e91]: Citations, always
+          - generic [ref=e92]: Every answer links to the exact line and page. No hallucinated sources, no guessing.
+        - generic [ref=e95]:
+          - generic [ref=e96]: Built for long docs
+          - generic [ref=e97]: An 80-page spec is the same effort as one page. Ask across the whole document.
+        - generic [ref=e100]:
+          - generic [ref=e101]: Dev-grade speed
+          - generic [ref=e102]: Indexing and answers in seconds. It feels like grep, because it basically is.
+        - generic [ref=e105]:
+          - generic [ref=e106]: Your docs stay yours
+          - generic [ref=e107]: Files are private to your workspace and deleted on request. No training on your data.
+    - generic [ref=e109]:
+      - generic [ref=e110]:
+        - generic [ref=e111]: "> pricing"
+        - heading "Simple pricing. Free to start." [level=2] [ref=e112]
+        - generic [ref=e113]:
+          - button "Monthly" [ref=e114] [cursor=pointer]
+          - button "Annual −25%" [ref=e115] [cursor=pointer]
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - generic [ref=e118]: Free
+          - generic [ref=e119]: For trying it out
+          - generic [ref=e120]: $0
+          - generic [ref=e122]: Free forever
+          - button "Upload a PDF" [ref=e124] [cursor=pointer]
+          - list [ref=e125]:
+            - listitem [ref=e126]:
+              - generic [ref=e129]: 5 documents
+            - listitem [ref=e130]:
+              - generic [ref=e133]: 50 questions / month
+            - listitem [ref=e134]:
+              - generic [ref=e137]: Citations on every answer
+            - listitem [ref=e138]:
+              - generic [ref=e141]: Community support
+        - generic [ref=e142]:
+          - generic [ref=e143]: Most popular
+          - generic [ref=e145]: Pro
+          - generic [ref=e146]: For daily drivers
+          - generic [ref=e147]:
+            - generic [ref=e148]: $12
+            - generic [ref=e149]: /mo
+          - generic [ref=e150]: per user, billed monthly
+          - button "Start Pro" [ref=e152] [cursor=pointer]
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - generic [ref=e157]: Unlimited documents
+            - listitem [ref=e158]:
+              - generic [ref=e161]: Unlimited questions
+            - listitem [ref=e162]:
+              - generic [ref=e165]: Priority indexing
+            - listitem [ref=e166]:
+              - generic [ref=e169]: Export answers + citations
+            - listitem [ref=e170]:
+              - generic [ref=e173]: Email support
+        - generic [ref=e174]:
+          - generic [ref=e175]: Team
+          - generic [ref=e176]: For research groups
+          - generic [ref=e177]:
+            - generic [ref=e178]: $29
+            - generic [ref=e179]: /mo
+          - generic [ref=e180]: per user, billed monthly
+          - button "Contact sales" [ref=e182] [cursor=pointer]
+          - list [ref=e183]:
+            - listitem [ref=e184]:
+              - generic [ref=e187]: Everything in Pro
+            - listitem [ref=e188]:
+              - generic [ref=e191]: Shared workspaces
+            - listitem [ref=e192]:
+              - generic [ref=e195]: Admin controls
+            - listitem [ref=e196]:
+              - generic [ref=e199]: SSO / SAML
+            - listitem [ref=e200]:
+              - generic [ref=e203]: Priority support
+    - generic [ref=e205]:
+      - generic [ref=e206]:
+        - generic [ref=e207]: "> faq"
+        - heading "Questions, answered." [level=2] [ref=e208]
+      - generic [ref=e209]:
+        - generic [ref=e210]:
+          - button "Where do the answers come from?" [expanded] [ref=e211] [cursor=pointer]
+          - generic [ref=e216]: Every answer is pulled straight from your document and shown with the exact line and page it came from. If the answer isn’t in the doc, grep.pdf tells you — no invented sources.
+        - button "What file types can I upload?" [ref=e218] [cursor=pointer]
+        - button "Do you train on my documents?" [ref=e224] [cursor=pointer]
+        - button "How fast is it?" [ref=e230] [cursor=pointer]
+        - button "Is there a free plan?" [ref=e236] [cursor=pointer]
+    - generic [ref=e243]:
+      - generic [ref=e244]: "> ready?"
+      - heading "Ask. Get the answer and the line it came from." [level=2] [ref=e245]
+      - paragraph [ref=e246]: Free for your first 5 documents. No card required.
+      - button "Upload a PDF" [ref=e248] [cursor=pointer]
+    - contentinfo [ref=e249]:
+      - generic [ref=e250]:
+        - img "grep.pdf" [ref=e251]
+        - generic [ref=e252]: grep your documents · © 2026
+        - generic [ref=e253]:
+          - link "Privacy" [ref=e254] [cursor=pointer]:
+            - /url: "#"
+          - link "Terms" [ref=e255] [cursor=pointer]:
+            - /url: "#"
+          - link "Docs" [ref=e256] [cursor=pointer]:
+            - /url: "#"
+  - dialog [ref=e350]:
+    - generic [ref=e352]:
+      - generic [ref=e353]:
+        - button "Close modal" [ref=e354] [cursor=pointer]
+        - generic [ref=e358]:
+          - heading "Create your account" [level=1] [ref=e359]
+          - paragraph [ref=e360]: Welcome! Please fill in the details to get started.
+        - generic [ref=e362]:
+          - generic [ref=e363]:
+            - generic [ref=e365]:
+              - generic [ref=e366]:
+                - generic [ref=e367]: Email address
+                - textbox "Email address" [disabled] [invalid]:
+                  - /placeholder: Enter your email address
+                  - text: gabbasudemy@gmail.com
+              - generic [ref=e370]: That email address is taken. Please try another.
+              - paragraph [ref=e465]: That email address is taken. Please try another.
+            - generic [ref=e373]:
+              - generic [ref=e374]: Password
+              - generic [ref=e376]:
+                - textbox "Password" [disabled]:
+                  - /placeholder: Create a password
+                  - text: QaTest!2026xyz
+                - button "Show password" [ref=e378] [cursor=pointer]
+          - generic [ref=e384]:
+            - button "Loading" [disabled]:
+              - generic:
+                - generic "Loading"
+      - generic [ref=e389]:
+        - generic [ref=e390]:
+          - generic [ref=e391]: Already have an account?
+          - link "Sign in" [ref=e392] [cursor=pointer]:
+            - /url: http://localhost:5173/CLERK-ROUTER/VIRTUAL/sign-in
+        - generic [ref=e394]:
+          - generic [ref=e396]:
+            - paragraph [ref=e397]: Secured by
+            - link "Clerk logo" [ref=e398] [cursor=pointer]:
+              - /url: https://go.clerk.com/components
+          - paragraph [ref=e404]: Development mode
