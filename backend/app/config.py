@@ -9,7 +9,8 @@ class Settings(BaseSettings):
     # Comma-separated list of origins allowed for CORS.
     cors_origins: str = "http://localhost:5173"
     # SQLAlchemy database URL (Postgres + pgvector). Uses the psycopg (v3) driver.
-    database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5433/grep_pdf"
+    # Defaults to a local Postgres on the standard port 5432 (e.g. Postgres.app).
+    database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/grep_pdf"
     # Clerk backend secret key (server-side), used to verify session tokens.
     clerk_secret_key: str = ""
 

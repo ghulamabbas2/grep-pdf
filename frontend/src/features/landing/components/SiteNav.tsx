@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
+import { Show, SignInButton, SignUpButton } from '@clerk/react'
 import { Button } from '../../../components/ui/Button'
+import { UserMenu } from '../../../components/UserMenu'
 import { CONTAINER, PAD_X } from '../data'
 import logoUrl from '../../../assets/logo.svg'
 
@@ -80,7 +81,7 @@ export function SiteNav() {
             <Button variant="primary" size="sm">
               Upload a PDF
             </Button>
-            <UserButton />
+            <UserMenu />
           </Show>
         </div>
         <button
@@ -157,7 +158,7 @@ export function SiteNav() {
               </SignUpButton>
             </Show>
             <Show when="signed-in">
-              <UserButton />
+              <UserMenu />
               <div style={{ flex: 1 }} />
               <Button variant="primary" size="sm">
                 Upload a PDF

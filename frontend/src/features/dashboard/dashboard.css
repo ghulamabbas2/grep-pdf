@@ -1,0 +1,141 @@
+/*
+ * Dashboard interaction + responsive rules, lifted from Dashboard.dc.html's
+ * <helmet> <style> block. Hover, the metrics grid, and the mobile sidebar
+ * drawer can't be expressed as inline styles, so they live here as gp-* classes
+ * (same convention as base.css). The gp-blink keyframe is defined in base.css.
+ */
+
+/* Scrollable regions — thin, ink-tinted scrollbar. */
+.gp-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.gp-scroll::-webkit-scrollbar-thumb {
+  background: var(--slate-200);
+  border-radius: 8px;
+  border: 3px solid var(--surface-card);
+}
+
+/* Blinking terminal cursor (empty state). */
+.gp-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  background: var(--yellow-500);
+  margin-left: 3px;
+  transform: translateY(2px);
+  animation: gp-blink 1.1s steps(1) infinite;
+}
+
+/* Session rows. */
+.gp-row {
+  transition: background 0.14s;
+}
+.gp-row:hover {
+  background: var(--slate-100);
+}
+.gp-row:hover .gp-chev {
+  transform: translateX(3px);
+  color: var(--ink-900);
+}
+.gp-row:hover .gp-filetile {
+  color: var(--color-accent-press);
+  border-color: var(--yellow-400);
+  background: var(--highlight-bg);
+}
+.gp-chev,
+.gp-filetile {
+  transition: all 0.14s;
+}
+
+/* Sidebar document items. */
+.gp-navitem:hover {
+  background: var(--slate-100);
+}
+
+/* Metrics: 4-up grid with hairline dividers, reflowing on narrow widths. */
+.gp-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+}
+@media (max-width: 760px) {
+  .gp-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  .gp-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Segmented sort control. */
+.gp-seg {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: all 0.15s;
+  background: transparent;
+  color: var(--slate-500);
+}
+.gp-seg[data-active='true'] {
+  background: var(--surface-card);
+  color: var(--ink-900);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile: sidebar becomes an off-canvas drawer with a topbar + backdrop. */
+.gp-topbar {
+  display: none;
+}
+.gp-backdrop {
+  display: none;
+}
+@media (max-width: 920px) {
+  .gp-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.24s cubic-bezier(0.2, 0, 0, 1);
+    z-index: 70;
+    box-shadow: var(--shadow-lg);
+  }
+  .gp-sidebar.is-open {
+    transform: none;
+  }
+  .gp-topbar {
+    display: flex !important;
+  }
+  .gp-backdrop.is-open {
+    display: block !important;
+  }
+  .gp-pagehead-new {
+    display: none !important;
+  }
+  .gp-content {
+    padding: 22px 18px 60px !important;
+  }
+}
+@media (max-width: 560px) {
+  .gp-content {
+    padding: 18px 14px 60px !important;
+  }
+  .gp-chev {
+    display: none !important;
+  }
+  .gp-h1 {
+    font-size: 24px !important;
+  }
+}

@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.routers import me
+from app.routers import me, sessions, stats
 from app.schemas.common import ErrorBody, ErrorEnvelope
 from app.services.auth import AuthError
 
@@ -50,6 +50,8 @@ def handle_unexpected_error(request: Request, exc: Exception) -> JSONResponse:
 
 
 app.include_router(me.router)
+app.include_router(sessions.router)
+app.include_router(stats.router)
 
 
 @app.get("/api/health")
