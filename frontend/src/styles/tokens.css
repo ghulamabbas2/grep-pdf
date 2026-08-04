@@ -1,0 +1,125 @@
+/*
+ * grep.pdf design tokens — ported from the Claude Design project's tokens/*.css.
+ * Source of truth per docs/design-system.md. Light mode only.
+ */
+
+:root {
+  /* ---- Colors: base palette (from brand brief) ---- */
+  --yellow-500: #facc15; /* Highlighter accent — the brand signature */
+  --yellow-400: #fde047; /* lighter highlight fill */
+  --yellow-300: #fef08a; /* faint highlight wash */
+  --yellow-600: #eab308; /* pressed / darker accent */
+
+  --ink-900: #1e1b4b; /* Deep indigo-ink — primary ground & body text */
+  --ink-800: #312e81; /* raised ink surface (reversed logo square) */
+  --ink-700: #3730a3; /* ink hover on dark */
+
+  --slate-500: #64748b; /* slightly stronger secondary */
+  --slate-400: #94a3b8; /* muted secondary text, .pdf, metadata */
+  --slate-300: #cbd5e1; /* borders, dividers */
+  --slate-200: #e2e8f0; /* subtle borders, track fills */
+  --slate-100: #f1f5f9; /* hover surface, inset panel */
+
+  --page-50: #f8fafc; /* soft off-white page background */
+  --white: #ffffff;
+
+  /* ---- Colors: semantic aliases ---- */
+  --color-accent: var(--yellow-500);
+  --color-accent-hover: var(--yellow-400);
+  --color-accent-press: var(--yellow-600);
+
+  --text-strong: var(--ink-900);
+  --text-body: var(--ink-900);
+  --text-muted: var(--slate-500);
+  --text-faint: var(--slate-400);
+  --text-on-ink: var(--page-50);
+  --text-on-accent: var(--ink-900); /* ink text on yellow, per contrast rule */
+
+  --surface-page: var(--page-50);
+  --surface-card: var(--white);
+  --surface-inset: var(--slate-100);
+  --surface-ink: var(--ink-900);
+  --surface-ink-raised: var(--ink-800);
+
+  --border-subtle: var(--slate-200);
+  --border-default: var(--slate-300);
+  --border-strong: var(--ink-900);
+
+  /* citation highlight — cited passage on the page */
+  --highlight-bg: var(--yellow-300);
+  --highlight-bar: var(--yellow-500);
+
+  /* ---- Typography: families ---- */
+  --font-display: 'Space Grotesk', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-body: 'Inter', -apple-system, system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Typography: scale (px-based, 16px root) ---- */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 26px;
+  --text-2xl: 34px;
+  --text-3xl: 46px;
+  --text-4xl: 60px;
+
+  /* ---- Typography: weights ---- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---- Typography: line heights ---- */
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  /* ---- Typography: tracking ---- */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em; /* eyebrow / label caps */
+  --tracking-mono: 0.01em;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---- Radii — soft, terminal-window feel ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-width-strong: 1.5px;
+
+  /* ---- Shadows — low, cool, ink-tinted. Never heavy drop shadows. ---- */
+  --shadow-xs: 0 1px 2px rgba(30, 27, 75, 0.06);
+  --shadow-sm: 0 1px 3px rgba(30, 27, 75, 0.08), 0 1px 2px rgba(30, 27, 75, 0.04);
+  --shadow-md: 0 4px 12px rgba(30, 27, 75, 0.08), 0 2px 4px rgba(30, 27, 75, 0.04);
+  --shadow-lg: 0 12px 32px rgba(30, 27, 75, 0.12), 0 4px 8px rgba(30, 27, 75, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(250, 204, 21, 0.45); /* yellow focus ring */
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+  --dur-slow: 320ms;
+}
