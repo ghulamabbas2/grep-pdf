@@ -5,6 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.18.5",
+    "clerk-backend-api>=6.0.1",
     "fastapi[standard]>=0.141.1",
+    "pgvector>=0.5.0",
+    "psycopg[binary]>=3.3.4",
     "pydantic-settings>=2.14.2",
+    "sqlalchemy>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
 ]

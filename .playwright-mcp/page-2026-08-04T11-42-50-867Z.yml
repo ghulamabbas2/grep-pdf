@@ -1,0 +1,216 @@
+- generic [ref=f17e1]:
+  - generic [ref=f17e3]:
+    - banner [ref=f17e4]:
+      - generic [ref=f17e5]:
+        - link [ref=f17e298] [cursor=pointer]:
+          - /url: "#top"
+        - navigation [ref=f17e8]:
+          - link [ref=f17e300] [cursor=pointer]:
+            - /url: "#how"
+            - text: How it works
+          - link [ref=f17e301] [cursor=pointer]:
+            - /url: "#features"
+            - text: Features
+          - link [ref=f17e302] [cursor=pointer]:
+            - /url: "#pricing"
+            - text: Pricing
+          - link [ref=f17e303] [cursor=pointer]:
+            - /url: "#faq"
+            - text: FAQ
+        - generic [ref=f17e13]:
+          - button [ref=f17e304] [cursor=pointer]: Upload a PDF
+          - button [expanded] [ref=f17e305] [cursor=pointer]
+    - generic [ref=f17e22]:
+      - generic [ref=f17e23]:
+        - generic [ref=f17e24]: "> grep your documents"
+        - heading [level=1] [ref=f17e308]: Stop scrolling. Ask your PDF
+        - paragraph [ref=f17e27]: Upload a document and get the answer — with the exact line it came from. Built for devs, students, and researchers.
+        - generic [ref=f17e28]:
+          - button [ref=f17e309] [cursor=pointer]: Upload a PDF
+          - button [ref=f17e310] [cursor=pointer]: See a demo
+        - generic [ref=f17e31]:
+          - generic [ref=f17e32]: "> no card required"
+          - generic [ref=f17e33]: "> 5 free documents"
+          - generic [ref=f17e34]: "> docs stay yours"
+      - generic [ref=f17e36]:
+        - generic [ref=f17e37]: refund-policy.pdf
+        - generic [ref=f17e42]:
+          - generic [ref=f17e43]: What's the refund window?
+          - generic [ref=f17e44]:
+            - generic [ref=f17e311]:
+              - text: You can return items within
+              - mark [ref=f17e312]: 30 days of delivery
+              - text: for a full refund.
+            - generic [ref=f17e315]:
+              - paragraph [ref=f17e316]:
+                - mark [ref=f17e317]: Refunds are available within 30 days of delivery.
+              - generic [ref=f17e318]:
+                - generic [ref=f17e319]: ">"
+                - generic [ref=f17e320]: refund-policy.pdf
+                - generic [ref=f17e321]: p.12
+    - generic [ref=f17e57]:
+      - generic [ref=f17e58]: ">"
+      - generic [ref=f17e59]: trusted by engineers, PhD candidates & legal teams
+      - generic [ref=f17e60]: ·
+      - generic [ref=f17e61]: 2.4M pages searched
+      - generic [ref=f17e62]: ·
+      - generic [ref=f17e63]: avg answer in 1.3s
+    - generic [ref=f17e65]:
+      - generic [ref=f17e66]:
+        - generic [ref=f17e67]: "> how it works"
+        - heading [level=2] [ref=f17e322]: Three steps. That's it.
+        - paragraph [ref=f17e69]: No setup. No prompt engineering. Just ask.
+      - generic [ref=f17e70]:
+        - generic [ref=f17e71]:
+          - generic [ref=f17e72]: "01"
+          - generic [ref=f17e73]: Upload
+          - generic [ref=f17e74]: Drop any PDF — contracts, papers, specs, textbooks. Indexed in seconds.
+        - generic [ref=f17e75]:
+          - generic [ref=f17e76]: "02"
+          - generic [ref=f17e77]: Ask
+          - generic [ref=f17e78]: Type a question in plain language. No scrolling, no Ctrl-F guessing.
+        - generic [ref=f17e79]:
+          - generic [ref=f17e80]: "03"
+          - generic [ref=f17e81]: Get the line
+          - generic [ref=f17e82]: Every answer comes with the exact passage and page it was pulled from.
+    - generic [ref=f17e85]:
+      - generic [ref=f17e86]:
+        - generic [ref=f17e87]: "> the answer, and the line"
+        - heading [level=2] [ref=f17e323]: Never guess where an answer came from.
+        - paragraph [ref=f17e89]: Every response points back to the exact passage and page. Click the citation, jump to the highlight. No hallucinated sources — if it's not in the doc, grep.pdf says so.
+      - generic [ref=f17e91]:
+        - generic [ref=f17e92]: spec-v2.pdf · p.8
+        - paragraph [ref=f17e93]:
+          - text: The service level agreement guarantees
+          - mark [ref=f17e94]: 99.95% uptime
+          - text: ", measured monthly, excluding scheduled maintenance windows announced"
+          - mark [ref=f17e95]: at least 48 hours in advance
+          - text: .
+    - generic [ref=f17e97]:
+      - generic [ref=f17e98]:
+        - generic [ref=f17e99]: "> features"
+        - heading [level=2] [ref=f17e324]: Built like a tool, not a toy.
+      - generic [ref=f17e101]:
+        - generic [ref=f17e104]:
+          - generic [ref=f17e105]: Citations, always
+          - generic [ref=f17e106]: Every answer links to the exact line and page. No hallucinated sources, no guessing.
+        - generic [ref=f17e109]:
+          - generic [ref=f17e110]: Built for long docs
+          - generic [ref=f17e111]: An 80-page spec is the same effort as one page. Ask across the whole document.
+        - generic [ref=f17e114]:
+          - generic [ref=f17e115]: Dev-grade speed
+          - generic [ref=f17e116]: Indexing and answers in seconds. It feels like grep, because it basically is.
+        - generic [ref=f17e119]:
+          - generic [ref=f17e120]: Your docs stay yours
+          - generic [ref=f17e121]: Files are private to your workspace and deleted on request. No training on your data.
+    - generic [ref=f17e123]:
+      - generic [ref=f17e124]:
+        - generic [ref=f17e125]: "> pricing"
+        - heading [level=2] [ref=f17e325]: Simple pricing. Free to start.
+        - generic [ref=f17e127]:
+          - button [ref=f17e326] [cursor=pointer]: Monthly
+          - button [ref=f17e327] [cursor=pointer]: Annual −25%
+      - generic [ref=f17e130]:
+        - generic [ref=f17e131]:
+          - generic [ref=f17e132]: Free
+          - generic [ref=f17e133]: For trying it out
+          - generic [ref=f17e134]: $0
+          - generic [ref=f17e136]: Free forever
+          - button [ref=f17e328] [cursor=pointer]: Upload a PDF
+          - list [ref=f17e139]:
+            - listitem [ref=f17e140]:
+              - generic [ref=f17e143]: 5 documents
+            - listitem [ref=f17e144]:
+              - generic [ref=f17e147]: 50 questions / month
+            - listitem [ref=f17e148]:
+              - generic [ref=f17e151]: Citations on every answer
+            - listitem [ref=f17e152]:
+              - generic [ref=f17e155]: Community support
+        - generic [ref=f17e156]:
+          - generic [ref=f17e157]: Most popular
+          - generic [ref=f17e159]: Pro
+          - generic [ref=f17e160]: For daily drivers
+          - generic [ref=f17e161]:
+            - generic [ref=f17e162]: $12
+            - generic [ref=f17e163]: /mo
+          - generic [ref=f17e164]: per user, billed monthly
+          - button [ref=f17e329] [cursor=pointer]: Start Pro
+          - list [ref=f17e167]:
+            - listitem [ref=f17e168]:
+              - generic [ref=f17e171]: Unlimited documents
+            - listitem [ref=f17e172]:
+              - generic [ref=f17e175]: Unlimited questions
+            - listitem [ref=f17e176]:
+              - generic [ref=f17e179]: Priority indexing
+            - listitem [ref=f17e180]:
+              - generic [ref=f17e183]: Export answers + citations
+            - listitem [ref=f17e184]:
+              - generic [ref=f17e187]: Email support
+        - generic [ref=f17e188]:
+          - generic [ref=f17e189]: Team
+          - generic [ref=f17e190]: For research groups
+          - generic [ref=f17e191]:
+            - generic [ref=f17e192]: $29
+            - generic [ref=f17e193]: /mo
+          - generic [ref=f17e194]: per user, billed monthly
+          - button [ref=f17e330] [cursor=pointer]: Contact sales
+          - list [ref=f17e197]:
+            - listitem [ref=f17e198]:
+              - generic [ref=f17e201]: Everything in Pro
+            - listitem [ref=f17e202]:
+              - generic [ref=f17e205]: Shared workspaces
+            - listitem [ref=f17e206]:
+              - generic [ref=f17e209]: Admin controls
+            - listitem [ref=f17e210]:
+              - generic [ref=f17e213]: SSO / SAML
+            - listitem [ref=f17e214]:
+              - generic [ref=f17e217]: Priority support
+    - generic [ref=f17e219]:
+      - generic [ref=f17e220]:
+        - generic [ref=f17e221]: "> faq"
+        - heading [level=2] [ref=f17e331]: Questions, answered.
+      - generic [ref=f17e223]:
+        - generic [ref=f17e224]:
+          - button [expanded] [ref=f17e332] [cursor=pointer]:
+            - generic [ref=f17e226]: Where do the answers come from?
+          - generic [ref=f17e230]: Every answer is pulled straight from your document and shown with the exact line and page it came from. If the answer isn’t in the doc, grep.pdf tells you — no invented sources.
+        - button [ref=f17e333] [cursor=pointer]:
+          - generic [ref=f17e233]: What file types can I upload?
+        - button [ref=f17e334] [cursor=pointer]:
+          - generic [ref=f17e239]: Do you train on my documents?
+        - button [ref=f17e335] [cursor=pointer]:
+          - generic [ref=f17e245]: How fast is it?
+        - button [ref=f17e336] [cursor=pointer]:
+          - generic [ref=f17e251]: Is there a free plan?
+    - generic [ref=f17e257]:
+      - generic [ref=f17e258]: "> ready?"
+      - heading [level=2] [ref=f17e337]: Ask. Get the answer and the line it came from.
+      - paragraph [ref=f17e260]: Free for your first 5 documents. No card required.
+      - button [ref=f17e338] [cursor=pointer]: Upload a PDF
+    - contentinfo [ref=f17e263]:
+      - generic [ref=f17e264]:
+        - generic [ref=f17e266]: grep your documents · © 2026
+        - generic [ref=f17e267]:
+          - link [ref=f17e340] [cursor=pointer]:
+            - /url: "#"
+            - text: Privacy
+          - link [ref=f17e341] [cursor=pointer]:
+            - /url: "#"
+            - text: Terms
+          - link [ref=f17e342] [cursor=pointer]:
+            - /url: "#"
+            - text: Docs
+  - dialog "Account panel" [active] [ref=f17e344]:
+    - generic [ref=f17e345]:
+      - generic [ref=f17e346]:
+        - img "'s logo" [ref=f17e349]
+        - generic [ref=f17e351]: gabbasudemy@gmail.com
+      - group "Account actions" [ref=f17e354]:
+        - button [ref=f17e355] [cursor=pointer]
+        - button [ref=f17e359] [cursor=pointer]
+    - generic [ref=f17e365]:
+      - generic [ref=f17e367]:
+        - paragraph [ref=f17e368]: Secured by
+        - link "Clerk logo" [ref=f17e369] [cursor=pointer]:
+          - /url: https://go.clerk.com/components
+      - paragraph [ref=f17e375]: Development mode
