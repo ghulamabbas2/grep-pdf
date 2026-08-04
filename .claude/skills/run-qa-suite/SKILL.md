@@ -36,7 +36,7 @@ Drive every scenario end-to-end with Playwright MCP (`mcp__playwright__browser_*
 
 - Navigate, click, type, and fill forms as the scenario's steps require. Use `browser_snapshot` to read page state before acting on it.
 - For steps that hit the API directly (e.g. calling a protected route with a token, or a forged-id request), use the app's real network path — the Vite `/api` proxy — via the browser, per the plan's Verification notes. Do not mock routes or stub responses; QA exercises the unmocked stack.
-- For steps that assert backend/DB state (e.g. a row was upserted), verify it the way Verification describes (e.g. `docker compose exec db psql`).
+- For steps that assert backend/DB state (e.g. a row was upserted), verify it the way Verification describes (e.g. `psql "$DATABASE_URL"` against the local Postgres).
 - Check the actual expected result for each scenario — the specific status code, envelope shape, visible UI, redirect, or DB row the scenario names. A scenario passes only if its stated expectation is met.
 - Capture the concrete evidence you observed (status code, response body, snapshot text, screenshot, query result) so the failure reason is specific if it fails.
 
