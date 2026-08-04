@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environment
+.venv/
+
+# Environment
+.env
+
+# uv
+# Keep uv.lock committed; ignore local caches only

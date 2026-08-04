@@ -1,0 +1,15 @@
+{
+  "name": "grep-pdf",
+  "version": "0.1.0",
+  "private": true,
+  "description": "grep-pdf — FastAPI backend + React/Vite/Tailwind frontend",
+  "scripts": {
+    "setup": "cd backend && uv sync && cd ../frontend && npm install",
+    "dev": "concurrently -n backend,frontend -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "cd backend && uv run fastapi dev app/main.py",
+    "dev:frontend": "cd frontend && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
