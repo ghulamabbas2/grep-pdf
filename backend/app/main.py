@@ -1,17 +1,22 @@
 import logging
+from collections.abc import Awaitable, Callable
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from slowapi.errors import RateLimitExceeded
 
 from app.config import settings
-from app.routers import me, sessions, stats
+from app.errors import AppError
+from app.rate_limit import limiter
+from app.routers import me, pdfs, sessions, stats
 from app.schemas.common import ErrorBody, ErrorEnvelope
 from app.services.auth import AuthError
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title=settings.app_name)
+app.state.limiter = limiter
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,11 +27,53 @@ app.add_middleware(
 )
 
 
+# Swagger UI / ReDoc load assets from a CDN, so those routes get a relaxed CSP;
+# every other (API) response gets the strict lock-down.
+_DOC_PATHS = frozenset({"/docs", "/redoc", "/openapi.json", "/docs/oauth2-redirect"})
+_STRICT_CSP = "default-src 'none'; frame-ancestors 'none'"
+_DOCS_CSP = (
+    "default-src 'self'; "
+    "script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; "
+    "style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; "
+    "img-src 'self' data: https://fastapi.tiangolo.com; "
+    "worker-src 'self' blob:"
+)
+
+
+@app.middleware("http")
+async def security_headers(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
+    """Set baseline security headers on every response (docs/security.md)."""
+    response = await call_next(request)
+    is_docs = request.url.path in _DOC_PATHS
+    response.headers["Content-Security-Policy"] = _DOCS_CSP if is_docs else _STRICT_CSP
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
+
+
 @app.exception_handler(AuthError)
 def handle_auth_error(_request: Request, exc: AuthError) -> JSONResponse:
     """Return a 401 in the standard error envelope for auth failures."""
     envelope = ErrorEnvelope(error=ErrorBody(code="unauthorized", message=str(exc)))
     return JSONResponse(status_code=401, content=envelope.model_dump())
+
+
+@app.exception_handler(AppError)
+def handle_app_error(_request: Request, exc: AppError) -> JSONResponse:
+    """Return a typed error envelope with the error's stable code + status."""
+    envelope = ErrorEnvelope(error=ErrorBody(code=exc.code, message=exc.message))
+    return JSONResponse(status_code=exc.status_code, content=envelope.model_dump())
+
+
+@app.exception_handler(RateLimitExceeded)
+def handle_rate_limit(_request: Request, exc: RateLimitExceeded) -> JSONResponse:
+    """Map slowapi's rate-limit error onto the standard error envelope (429)."""
+    envelope = ErrorEnvelope(
+        error=ErrorBody(code="rate_limited", message="Too many requests. Please slow down."),
+    )
+    return JSONResponse(status_code=429, content=envelope.model_dump())
 
 
 @app.exception_handler(HTTPException)
@@ -50,6 +97,7 @@ def handle_unexpected_error(request: Request, exc: Exception) -> JSONResponse:
 
 
 app.include_router(me.router)
+app.include_router(pdfs.router)
 app.include_router(sessions.router)
 app.include_router(stats.router)
 

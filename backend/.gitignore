@@ -12,5 +12,8 @@ __pycache__/
 # Environment
 .env
 
+# Local uploaded PDFs (dev storage volume; Railway Volume in prod)
+var/
+
 # uv
 # Keep uv.lock committed; ignore local caches only

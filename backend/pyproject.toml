@@ -11,7 +11,11 @@ dependencies = [
     "pgvector>=0.5.0",
     "psycopg[binary]>=3.3.4",
     "pydantic-settings>=2.14.2",
+    "pymupdf>=1.28.0",
+    "slowapi>=0.1.10",
     "sqlalchemy>=2.0",
+    "tiktoken>=0.13.0",
+    "voyageai>=0.5.0",
 ]
 
 [dependency-groups]

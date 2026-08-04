@@ -248,7 +248,11 @@ export function DashboardPage() {
         </div>
       </main>
 
-      <UploadDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
+      <UploadDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSuccess={(sessionId) => navigate(`/chat/${sessionId}`)}
+      />
     </div>
   )
 }
