@@ -42,3 +42,16 @@ There is **no test suite** in this repo yet — no test runner is configured for
 **Env files.** Each package has its own `.env.example`; copy to `.env` before running (`cp backend/.env.example backend/.env`, same for `frontend/`). `.env` files are gitignored.
 
 **Frontend linting** uses oxlint (not ESLint) configured in `frontend/.oxlintrc.json` with the react/typescript/oxc plugins; `react/rules-of-hooks` is enforced as an error.
+
+## Doc Convention
+
+Whenever a new file is created in `/docs`, add it to the **Project Docs** section below with one line on what it covers and when to read it.
+
+### Project Docs
+
+- [architecture.md](docs/architecture.md) — Monorepo layout: backend layers (routers/services/models/schemas), frontend structure (features/shared UI/API client), and naming conventions. Read before adding files or deciding where code goes.
+- [api.md](docs/api.md) — API conventions: `/api/*` routers grouped by resource, the `{ data }` / `{ error }` envelope, per-user request scoping, the typed frontend client in `lib/api.ts`, and SSE streaming with structured citation events. Read before adding routes or frontend API calls.
+- [auth.md](docs/auth.md) — Clerk auth: hosted UI + @clerk/react on the frontend, JWT/JWKS verification middleware on the backend, protected `/api/*` routes, and user id sourced only from the verified token. Read before touching auth, middleware, or protected routes.
+- [database.md](docs/database.md) — Postgres + SQLAlchemy + Alembic + pgvector: core tables, per-user query scoping, and indexing (user_id + IVFFlat on chunk vectors). Read before touching models, migrations, or queries.
+- [design-system.md](docs/design-system.md) — Design tokens (colors, type, spacing) mapped from the CSS custom properties source of truth to React + Vite + Tailwind. Read before styling UI or picking colors/values.
+- [ui.md](docs/ui.md) — Component contracts (props, variants, states) for the UI library, keyed to the design-system tokens. Read before building or modifying components.
