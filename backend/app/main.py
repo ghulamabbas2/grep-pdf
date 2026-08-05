@@ -68,6 +68,7 @@ async def security_headers(
 @app.exception_handler(AuthError)
 def handle_auth_error(_request: Request, exc: AuthError) -> JSONResponse:
     """Return a 401 in the standard error envelope for auth failures."""
+    logger.warning("Auth rejected on %s: %s", _request.url.path, exc)
     envelope = ErrorEnvelope(error=ErrorBody(code="unauthorized", message=str(exc)))
     return JSONResponse(status_code=401, content=envelope.model_dump())
 

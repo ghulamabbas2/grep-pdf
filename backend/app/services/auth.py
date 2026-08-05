@@ -11,6 +11,7 @@ import httpx
 from clerk_backend_api import Clerk
 from clerk_backend_api.security.types import AuthenticateRequestOptions
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DbSession
 
 from app.config import settings
@@ -84,8 +85,17 @@ def upsert_user(db: DbSession, user_id: str, resolve_email: Callable[[], str | N
     if user is None:
         user = User(id=user_id, email=resolve_email())
         db.add(user)
-        db.commit()
-        db.refresh(user)
+        try:
+            db.commit()
+        except IntegrityError:
+            # A concurrent request provisioned this same user first — on first
+            # login the client fires several protected requests in parallel, so
+            # each sees no row and races to INSERT. Roll back and read the row
+            # the winning request committed.
+            db.rollback()
+            user = db.execute(select(User).where(User.id == user_id)).scalar_one()
+        else:
+            db.refresh(user)
     elif user.email is None:
         email = resolve_email()
         if email is not None:
