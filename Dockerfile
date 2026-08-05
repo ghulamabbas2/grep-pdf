@@ -29,7 +29,7 @@ WORKDIR /app/backend
 
 # Install Python deps from the lockfile first (cached until deps change).
 COPY backend/pyproject.toml backend/uv.lock ./
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
     uv sync --frozen --no-dev --no-install-project
 
 # App source, Alembic config/migrations, and the entrypoint.
