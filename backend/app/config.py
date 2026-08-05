@@ -75,7 +75,11 @@ class Settings(BaseSettings):
         are same-origin, the pdf.js worker runs from a blob, and Clerk needs its
         Frontend API host for scripts/XHR/frames. Dev Clerk instances live on
         ``*.clerk.accounts.dev``; a production instance's host is added via
-        ``clerk_frontend_api``. Clerk avatars come from ``img.clerk.com``.
+        ``clerk_frontend_api``. Clerk avatars come from ``img.clerk.com``. The
+        PDF viewer hands react-pdf a ``blob:`` object URL that pdf.js fetches via
+        XHR, so ``connect-src`` allows ``blob:``. Fonts come from Google Fonts
+        (``index.css`` @imports the stylesheet from ``fonts.googleapis.com``,
+        which serves the font files from ``fonts.gstatic.com``).
         """
         clerk_hosts = ["https://*.clerk.accounts.dev"]
         if self.clerk_frontend_api:
@@ -85,11 +89,11 @@ class Settings(BaseSettings):
             [
                 "default-src 'self'",
                 f"script-src 'self' {clerk}",
-                f"connect-src 'self' {clerk}",
+                f"connect-src 'self' blob: {clerk}",
                 f"frame-src 'self' {clerk}",
                 "img-src 'self' data: https://img.clerk.com",
-                "style-src 'self' 'unsafe-inline'",
-                "font-src 'self' data:",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                "font-src 'self' data: https://fonts.gstatic.com",
                 "worker-src 'self' blob:",
                 "base-uri 'self'",
                 "form-action 'self'",
