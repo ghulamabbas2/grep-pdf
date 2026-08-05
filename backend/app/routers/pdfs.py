@@ -140,6 +140,7 @@ def process_pdf(
             title=session.title or pdf.filename,
             pdf_filename=pdf.filename,
             preview=None,
+            preview_quote=None,
             created_at=session.created_at,
         )
     )

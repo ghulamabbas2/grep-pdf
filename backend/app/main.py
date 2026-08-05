@@ -2,6 +2,7 @@ import logging
 from collections.abc import Awaitable, Callable
 
 from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
@@ -9,7 +10,7 @@ from slowapi.errors import RateLimitExceeded
 from app.config import settings
 from app.errors import AppError
 from app.rate_limit import limiter
-from app.routers import me, pdfs, sessions, stats
+from app.routers import chat, me, pdfs, sessions, stats
 from app.schemas.common import ErrorBody, ErrorEnvelope
 from app.services.auth import AuthError
 
@@ -76,6 +77,19 @@ def handle_rate_limit(_request: Request, exc: RateLimitExceeded) -> JSONResponse
     return JSONResponse(status_code=429, content=envelope.model_dump())
 
 
+@app.exception_handler(RequestValidationError)
+def handle_validation_error(_request: Request, exc: RequestValidationError) -> JSONResponse:
+    """Return request-body validation failures as the typed 422 envelope.
+
+    The first error's human message is surfaced; full details stay server-side
+    (see docs/errors-and-validation.md).
+    """
+    errors = exc.errors()
+    message = errors[0]["msg"] if errors else "Invalid request."
+    envelope = ErrorEnvelope(error=ErrorBody(code="validation_error", message=message))
+    return JSONResponse(status_code=422, content=envelope.model_dump())
+
+
 @app.exception_handler(HTTPException)
 def handle_http_exception(_request: Request, exc: HTTPException) -> JSONResponse:
     """Map FastAPI's ``HTTPException`` onto the standard error envelope."""
@@ -100,6 +114,7 @@ app.include_router(me.router)
 app.include_router(pdfs.router)
 app.include_router(sessions.router)
 app.include_router(stats.router)
+app.include_router(chat.router)
 
 
 @app.get("/api/health")

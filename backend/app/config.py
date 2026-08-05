@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     clerk_secret_key: str = ""
     # Voyage AI key for chunk embeddings (voyage-3-lite, 512-dim; see docs/rag.md).
     voyage_api_key: str = ""
+    # Anthropic key + model for the answer chain (LangChain ChatAnthropic; see docs/llm.md).
+    anthropic_api_key: str = ""
+    anthropic_model: str = "claude-haiku-4-5-20251001"
     # Base directory uploaded PDFs are written under, one subfolder per user id.
     # Local path in dev; the Railway Volume mount in production (see docs/security.md).
     storage_base_path: str = "./var/uploads"
@@ -25,6 +28,8 @@ class Settings(BaseSettings):
     # Per-user rate limit for the process endpoint; looser so legitimate retries
     # after a failed ingest don't trip the limit.
     process_rate_limit: str = "30/minute"
+    # Per-user rate limit for the chat/ask endpoint (see docs/security.md).
+    chat_rate_limit: str = "30/minute"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

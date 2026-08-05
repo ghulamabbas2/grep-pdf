@@ -1,6 +1,7 @@
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
+import { Highlight } from '../../../components/ui/Highlight'
 import { Input } from '../../../components/ui/Input'
 import { relativeTime } from '../lib/format'
 import type { Session, SortKey } from '../types'
@@ -23,6 +24,67 @@ const SORTS: { key: SortKey; label: string }[] = [
 
 function haystack(s: Session): string {
   return `${s.title} ${s.pdf_filename ?? ''} ${s.preview ?? ''}`.toLowerCase()
+}
+
+type Word = { norm: string; start: number; end: number }
+
+/** Split into words, keeping original spans and a comparison-normalized form. */
+function words(text: string): Word[] {
+  const out: Word[] = []
+  const re = /\S+/g
+  let match: RegExpExecArray | null
+  while ((match = re.exec(text)) !== null) {
+    out.push({
+      norm: match[0].toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''),
+      start: match.index,
+      end: match.index + match[0].length,
+    })
+  }
+  return out
+}
+
+/**
+ * Find the longest run of consecutive words shared between the preview and the
+ * cited line. The citation quote is verbatim from the PDF source, so it rarely
+ * appears in the answer literally — but a factual answer usually echoes a phrase
+ * of it, and that shared phrase is what we highlight.
+ */
+function sharedSpan(preview: string, quote: string): { start: number; end: number } | null {
+  const p = words(preview)
+  const q = words(quote).map((w) => w.norm)
+  let best = { pStart: -1, pEnd: -1, len: 0 }
+  for (let i = 0; i < p.length; i++) {
+    for (let j = 0; j < q.length; j++) {
+      let k = 0
+      while (i + k < p.length && j + k < q.length && p[i + k].norm && p[i + k].norm === q[j + k]) {
+        k++
+      }
+      if (k > best.len) best = { pStart: i, pEnd: i + k - 1, len: k }
+    }
+  }
+  if (best.len === 0) return null
+  const first = p[best.pStart]
+  const span = { start: first.start, end: p[best.pEnd].end }
+  // Require a substantial phrase so trivial words ("the", "of") aren't marked.
+  const enough = best.len >= 2 || (best.len === 1 && first.norm.length >= 6)
+  return enough && span.end - span.start >= 6 ? span : null
+}
+
+/**
+ * Render a preview with its cited line highlighted in place (the highlighter
+ * motif). Falls back to the plain preview when no meaningful phrase is shared.
+ */
+function renderPreview(preview: string, quote: string | null): ReactNode {
+  if (!quote) return preview
+  const span = sharedSpan(preview, quote)
+  if (!span) return preview
+  return (
+    <>
+      {preview.slice(0, span.start)}
+      <Highlight>{preview.slice(span.start, span.end)}</Highlight>
+      {preview.slice(span.end)}
+    </>
+  )
 }
 
 /** Searchable, sortable list of the user's sessions. Filter/sort are client-side. */
@@ -213,8 +275,8 @@ export function SessionList({
                     {relativeTime(s.created_at)}
                   </span>
                 </span>
-                {/* Plain preview for now: highlighting the cited span needs
-                    citation offsets we won't have until RAG lands. */}
+                {/* The cited line from the latest answer is highlighted in place
+                    (the highlighter motif) when it appears in the preview. */}
                 {s.preview && (
                   <span
                     style={{
@@ -228,7 +290,7 @@ export function SessionList({
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {s.preview}
+                    {renderPreview(s.preview, s.preview_quote)}
                   </span>
                 )}
                 {s.pdf_filename && (

@@ -1,0 +1,256 @@
+/*
+ * Chat view layout + motion. Colors/spacing come from the design tokens
+ * (styles/tokens.css); the classes here are the two-panel shell, the composer,
+ * citation chips, and the "searching…" / cursor animations (design-system.md).
+ */
+
+.gp-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.gp-app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Top ink bar */
+.gp-hdr {
+  flex-shrink: 0;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  background: var(--surface-ink);
+  color: var(--text-on-ink);
+}
+
+.gp-pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+.gp-pdf {
+  flex: 0 0 52%;
+  background: var(--slate-100);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.gp-chat {
+  flex: 1;
+  background: var(--surface-page);
+}
+
+/* Toolbar icon buttons (page nav) */
+.gp-barbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-body);
+  cursor: pointer;
+}
+.gp-barbtn:hover:not(:disabled) {
+  background: var(--slate-100);
+}
+.gp-barbtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Inline citation chip: `> p.N` */
+.gp-cite-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-900);
+  background: var(--highlight-bg);
+  border: 1px solid var(--yellow-400);
+  border-radius: var(--radius-pill);
+  padding: 1px 8px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+.gp-cite-chip:hover {
+  background: var(--yellow-400);
+}
+
+/* Ask composer */
+.gp-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 14px;
+  height: 52px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.gp-composer:focus-within {
+  border-color: var(--color-accent-press);
+  box-shadow: var(--shadow-focus);
+}
+.gp-composer input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--text-body);
+  height: 100%;
+}
+.gp-composer input::placeholder {
+  color: var(--text-faint);
+}
+
+.gp-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--ink-900);
+  cursor: pointer;
+  transition: background var(--dur-fast);
+}
+.gp-send:hover:not(:disabled) {
+  background: var(--yellow-400);
+}
+.gp-send:active:not(:disabled) {
+  background: var(--color-accent-press);
+}
+.gp-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Mobile tabs (Document / Chat) */
+.gp-tabs {
+  display: none;
+}
+.gp-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.gp-tab[data-on='1'] {
+  color: var(--ink-900);
+  border-bottom-color: var(--color-accent-press);
+}
+
+/* The rendered PDF page sheet */
+.gp-pdf-page {
+  box-shadow: var(--shadow-md);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* Highlighted citation on the rendered PDF page */
+.gp-pdf-hl {
+  background: var(--highlight-bg);
+  color: var(--ink-900);
+  box-shadow: inset 0 -0.5em 0 var(--yellow-400);
+  border-radius: 2px;
+}
+
+/* "searching the document…" bouncing dots */
+.gp-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--slate-400);
+  display: inline-block;
+  animation: gp-bounce 1s infinite ease-in-out;
+}
+@keyframes gp-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Blinking terminal cursor appended to the streaming answer */
+.gp-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--color-accent-press);
+  animation: gp-blink 1s steps(2, start) infinite;
+}
+@keyframes gp-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .gp-pdf {
+    flex: 0 0 46%;
+  }
+}
+
+@media (max-width: 760px) {
+  .gp-app {
+    flex-direction: column;
+  }
+  .gp-tabs {
+    display: flex;
+    height: 48px;
+    flex-shrink: 0;
+    background: var(--surface-card);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .gp-pdf,
+  .gp-chat {
+    flex: 1 1 auto;
+    border-right: none;
+    width: 100%;
+  }
+  .gp-app[data-mv='chat'] .gp-pdf {
+    display: none;
+  }
+  .gp-app[data-mv='doc'] .gp-chat {
+    display: none;
+  }
+}
