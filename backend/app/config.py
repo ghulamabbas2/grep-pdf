@@ -7,8 +7,18 @@ class Settings(BaseSettings):
 
     app_name: str = "grep-pdf API"
     environment: str = "development"
-    # Comma-separated list of origins allowed for CORS.
+    # Comma-separated list of origins allowed for CORS (and, reused below, the
+    # Clerk authorized parties). Local dev default; deployments extend it with
+    # the platform's own public origin via `railway_public_domain`.
     cors_origins: str = "http://localhost:5173"
+    # Railway injects RAILWAY_PUBLIC_DOMAIN (host only, e.g.
+    # "backend-production-7bfd.up.railway.app") into every deploy from first
+    # boot. Deriving the deploy's own origin from it means the served SPA is
+    # always an allowed origin / Clerk authorized party — no per-environment
+    # CORS_ORIGINS needed, no dependency on variable set-ordering, and no
+    # CORS_ORIGINS -> RAILWAY_PUBLIC_DOMAIN reference (which Railway flags for
+    # egress). Empty off-platform (local dev), so it changes nothing there.
+    railway_public_domain: str = ""
     # Directory holding the built frontend (Vite `dist`). Empty in local dev —
     # the frontend runs on the Vite dev server there. Set in the Docker image to
     # the copied bundle so FastAPI serves the SPA (see docs/deployment.md).
@@ -60,7 +70,14 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        origins = [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        # On Railway, always trust this deploy's own public origin so the SPA it
+        # serves can call the API and present Clerk tokens (see railway_public_domain).
+        if self.railway_public_domain:
+            derived = f"https://{self.railway_public_domain}"
+            if derived not in origins:
+                origins.append(derived)
+        return origins
 
     @property
     def clerk_authorized_parties(self) -> list[str]:
