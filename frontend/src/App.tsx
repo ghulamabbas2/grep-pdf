@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { RequireAuth } from './components/RequireAuth'
 import { LandingPage } from './features/landing/LandingPage'
+import { AboutPage } from './features/about/AboutPage'
 import { DashboardPage } from './features/dashboard/DashboardPage'
 import { ChatPage } from './features/chat/ChatPage'
 
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route
           path="/dashboard"
           element={

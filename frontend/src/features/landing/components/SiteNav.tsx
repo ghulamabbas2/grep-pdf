@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Link } from 'react-router'
 import { Show, SignInButton, SignUpButton } from '@clerk/react'
 import { Button } from '../../../components/ui/Button'
 import { UserMenu } from '../../../components/UserMenu'
@@ -50,9 +51,9 @@ export function SiteNav() {
           gap: 20,
         }}
       >
-        <a href="#top" style={{ display: 'flex', alignItems: 'center' }}>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
           <img src={logoUrl} alt="grep.pdf" style={{ height: 56, display: 'block' }} />
-        </a>
+        </Link>
         <nav
           className="gp-nav-links"
           style={{ gap: 24, marginLeft: 12, fontSize: 14, color: 'var(--text-muted)' }}
@@ -62,6 +63,9 @@ export function SiteNav() {
               {link.label}
             </a>
           ))}
+          <Link to="/about" style={{ color: 'inherit' }}>
+            About
+          </Link>
         </nav>
         <div style={{ flex: 1 }} />
         <div className="gp-nav-actions" style={{ gap: 16, alignItems: 'center' }}>
@@ -143,6 +147,18 @@ export function SiteNav() {
               {link.label}
             </a>
           ))}
+          <Link
+            to="/about"
+            onClick={closeMenu}
+            style={{
+              color: 'var(--text-body)',
+              padding: '10px 0',
+              borderBottom: '1px solid var(--border-subtle)',
+              fontSize: 15,
+            }}
+          >
+            About
+          </Link>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', paddingTop: 14 }}>
             <Show when="signed-out">
               <SignInButton mode="modal">
