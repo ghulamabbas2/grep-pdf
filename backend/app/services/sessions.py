@@ -102,13 +102,16 @@ def compute_stats(db: DbSession, user_id: str) -> StatsOut:
         .select_from(Message)
         .where(Message.user_id == user_id, Message.role == "assistant")
     )
-    # Sum the length of each answer's citations array (docs/llm.md); JSON-null
-    # rows are excluded so only real citations are counted.
+    # Sum the length of each answer's citations array (docs/llm.md). Only rows
+    # whose citations are a JSON array are counted: citation-less answers persist
+    # `None`, which JSONB stores as the scalar `'null'` (not SQL NULL), so an
+    # `IS NOT NULL` guard would let it through and jsonb_array_length would raise
+    # "cannot get array length of a scalar". jsonb_typeof filters it cleanly.
     citations_found = _count(
         select(func.coalesce(func.sum(func.jsonb_array_length(Message.citations)), 0)).where(
             Message.user_id == user_id,
             Message.role == "assistant",
-            Message.citations.isnot(None),
+            func.jsonb_typeof(Message.citations) == "array",
         )
     )
 
