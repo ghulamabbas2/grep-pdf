@@ -67,9 +67,7 @@ def _format_context(question: str, chunks: list[RetrievedChunk]) -> str:
     return f"Question: {question}\n\nSources from the document:\n\n{sources}"
 
 
-def _resolve_citations(
-    data: dict[str, Any], chunks: list[RetrievedChunk]
-) -> list[Citation]:
+def _resolve_citations(data: dict[str, Any], chunks: list[RetrievedChunk]) -> list[Citation]:
     """Map the model's 1-based source indices back to real chunk pages/ids.
 
     Citations whose source index is out of range are dropped defensively so a
@@ -82,15 +80,11 @@ def _resolve_citations(
         if not isinstance(source, int) or not (1 <= source <= len(chunks)):
             continue
         chunk = chunks[source - 1]
-        resolved.append(
-            Citation(page=chunk.page_number, chunk_id=chunk.id, quote=str(quote or ""))
-        )
+        resolved.append(Citation(page=chunk.page_number, chunk_id=chunk.id, quote=str(quote or "")))
     return resolved
 
 
-def stream_answer(
-    question: str, chunks: list[RetrievedChunk]
-) -> Iterator[AnswerEvent]:
+def stream_answer(question: str, chunks: list[RetrievedChunk]) -> Iterator[AnswerEvent]:
     """Stream the answer to ``question`` grounded in ``chunks``.
 
     Yields ``TokenEvent`` deltas as the answer text is produced, then a single

@@ -21,7 +21,7 @@ class Base(DeclarativeBase):
     """Declarative base for all ORM models."""
 
 
-def get_db() -> Generator[Session, None, None]:
+def get_db() -> Generator[Session]:
     """FastAPI dependency yielding a scoped database session."""
     db = SessionLocal()
     try:

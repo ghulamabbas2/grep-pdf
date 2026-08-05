@@ -114,9 +114,7 @@ def compute_stats(db: DbSession, user_id: str) -> StatsOut:
 
     ready_pdfs = (Pdf.user_id == user_id, Pdf.status == "ready")
     pdfs_indexed = _count(select(func.count()).select_from(Pdf).where(*ready_pdfs))
-    pages_indexed = _count(
-        select(func.coalesce(func.sum(Pdf.num_pages), 0)).where(*ready_pdfs)
-    )
+    pages_indexed = _count(select(func.coalesce(func.sum(Pdf.num_pages), 0)).where(*ready_pdfs))
 
     return StatsOut(
         sessions_total=sessions_total,

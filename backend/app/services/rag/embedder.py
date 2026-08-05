@@ -38,7 +38,7 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
                 output_dimension=EMBEDDING_DIM,
             )
             embeddings.extend(result.embeddings)
-    except Exception as exc:  # noqa: BLE001 — normalize any provider error
+    except Exception as exc:
         raise EmbeddingError(str(exc)) from exc
     return embeddings
 
@@ -58,6 +58,6 @@ def embed_query(text: str) -> list[float]:
             input_type="query",
             output_dimension=EMBEDDING_DIM,
         )
-    except Exception as exc:  # noqa: BLE001 — normalize any provider error
+    except Exception as exc:
         raise EmbeddingError(str(exc)) from exc
     return result.embeddings[0]

@@ -1,0 +1,77 @@
+name: CI
+
+# CI is the gate only — Railway builds and deploys from GitHub separately
+# (see docs/deployment.md). This never deploys; it just has to be green to merge.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel superseded runs on the same ref (e.g. new push to a PR branch).
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend (lint + test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Lint (ruff)
+        run: uv run ruff check .
+
+      - name: Format check (ruff)
+        run: uv run ruff format --check .
+
+      - name: Test (pytest)
+        run: uv run pytest -q
+
+  frontend:
+    name: Frontend (lint + build + test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (oxlint)
+        run: npm run lint
+
+      - name: Type-check + build
+        # The publishable key is compiled into the bundle; a dummy value is
+        # enough for the type-check/build gate (the real key is set on Railway).
+        env:
+          VITE_CLERK_PUBLISHABLE_KEY: pk_test_ci
+        run: npm run build
+
+      - name: Test (vitest)
+        run: npm test

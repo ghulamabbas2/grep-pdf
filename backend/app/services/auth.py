@@ -73,9 +73,7 @@ def fetch_primary_email(user_id: str) -> str | None:
     return emails[0].email_address if emails else None
 
 
-def upsert_user(
-    db: DbSession, user_id: str, resolve_email: Callable[[], str | None]
-) -> User:
+def upsert_user(db: DbSession, user_id: str, resolve_email: Callable[[], str | None]) -> User:
     """Return the `users` row for `user_id`, creating it on first sight.
 
     `resolve_email` is invoked only when an email is actually needed — when the

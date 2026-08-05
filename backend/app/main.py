@@ -13,6 +13,7 @@ from app.rate_limit import limiter
 from app.routers import chat, me, pdfs, sessions, stats
 from app.schemas.common import ErrorBody, ErrorEnvelope
 from app.services.auth import AuthError
+from app.spa import mount_spa
 
 logger = logging.getLogger(__name__)
 
@@ -28,8 +29,10 @@ app.add_middleware(
 )
 
 
-# Swagger UI / ReDoc load assets from a CDN, so those routes get a relaxed CSP;
-# every other (API) response gets the strict lock-down.
+# CSP is chosen per response class:
+#  - JSON API responses need nothing, so they get the strictest lock-down.
+#  - Swagger UI / ReDoc load assets from a CDN, so those routes get a relaxed CSP.
+#  - The served SPA (every other path) gets an app-shell CSP (see settings.app_csp).
 _DOC_PATHS = frozenset({"/docs", "/redoc", "/openapi.json", "/docs/oauth2-redirect"})
 _STRICT_CSP = "default-src 'none'; frame-ancestors 'none'"
 _DOCS_CSP = (
@@ -41,14 +44,22 @@ _DOCS_CSP = (
 )
 
 
+def _csp_for(path: str) -> str:
+    """Pick the Content-Security-Policy for a request path."""
+    if path in _DOC_PATHS:
+        return _DOCS_CSP
+    if path == "/api" or path.startswith("/api/"):
+        return _STRICT_CSP
+    return settings.app_csp
+
+
 @app.middleware("http")
 async def security_headers(
     request: Request, call_next: Callable[[Request], Awaitable[Response]]
 ) -> Response:
     """Set baseline security headers on every response (docs/security.md)."""
     response = await call_next(request)
-    is_docs = request.url.path in _DOC_PATHS
-    response.headers["Content-Security-Policy"] = _DOCS_CSP if is_docs else _STRICT_CSP
+    response.headers["Content-Security-Policy"] = _csp_for(request.url.path)
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "no-referrer"
     return response
@@ -121,3 +132,8 @@ app.include_router(chat.router)
 def health() -> dict[str, str]:
     """Simple liveness check used by the frontend and tooling."""
     return {"status": "ok", "environment": settings.environment}
+
+
+# Serve the built frontend last, so its catch-all never shadows the API routes
+# above. No-op in local dev, where the Vite dev server owns the frontend.
+mount_spa(app)

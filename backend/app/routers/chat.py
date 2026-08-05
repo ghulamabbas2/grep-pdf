@@ -78,9 +78,7 @@ def ask(
 
     pdf = chat_service.get_owned_pdf(db, user.id, session.pdf_id)
     if pdf is None or pdf.status != "ready":
-        raise AppError(
-            "pdf_not_ready", "This document isn't ready to answer questions yet.", 409
-        )
+        raise AppError("pdf_not_ready", "This document isn't ready to answer questions yet.", 409)
 
     # Retrieve first, while the request-scoped session is on this thread; the
     # plain dataclasses returned are safe to use inside the worker-thread

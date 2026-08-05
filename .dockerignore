@@ -1,0 +1,32 @@
+# Keep the build context small and never ship host-only or secret files.
+
+# Secrets — never copy .env into the image (see docs/security.md).
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies / build outputs (reinstalled or rebuilt inside the image).
+**/node_modules
+frontend/dist
+backend/.venv
+
+# Python caches
+**/__pycache__
+**/*.pyc
+backend/.pytest_cache
+backend/.mypy_cache
+backend/.ruff_cache
+
+# Local runtime data (uploaded PDFs live on the Railway Volume, not in the image).
+backend/var
+
+# Tooling / VCS / docs that don't belong in the runtime image.
+.git
+.github
+.claude
+.playwright-mcp
+plans
+docs
+node_modules
+*.log
+.DS_Store

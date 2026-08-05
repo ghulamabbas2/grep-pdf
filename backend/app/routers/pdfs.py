@@ -122,9 +122,7 @@ def process_pdf(
         raise AppError("parse_failed", "We couldn't read that PDF.", 422) from exc
     except EmptyPdfError as exc:
         _fail(db, pdf)
-        raise AppError(
-            "empty_pdf", "That PDF has no selectable text to index.", 422
-        ) from exc
+        raise AppError("empty_pdf", "That PDF has no selectable text to index.", 422) from exc
     except EmbeddingError as exc:
         _fail(db, pdf)
         raise AppError(

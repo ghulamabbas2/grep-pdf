@@ -22,4 +22,31 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "ruff>=0.9",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF", "BLE001", "PLR2004"]
+# Line length is owned by the formatter; PEP 695 generic rewrites are skipped to
+# avoid churning the Pydantic generic envelopes.
+ignore = ["E501", "UP046", "UP047"]
+
+[tool.ruff.lint.per-file-ignores]
+# Magic values are fine in assertions.
+"**/test_*.py" = ["PLR2004"]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency markers are called in argument defaults by design.
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.File",
+    "fastapi.Query",
+    "fastapi.Form",
+    "fastapi.Body",
+    "fastapi.Path",
+    "fastapi.Header",
 ]

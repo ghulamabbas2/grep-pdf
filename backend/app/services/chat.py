@@ -15,9 +15,7 @@ from app.models.session import Session
 from app.schemas.chat import Citation, MessageOut, PdfRef, SessionDetailOut
 
 
-def get_owned_session(
-    db: DbSession, user_id: str, session_id: uuid.UUID
-) -> Session | None:
+def get_owned_session(db: DbSession, user_id: str, session_id: uuid.UUID) -> Session | None:
     """Return the user's session, or ``None`` if it isn't theirs / doesn't exist."""
     stmt = select(Session).where(Session.id == session_id, Session.user_id == user_id)
     return db.execute(stmt).scalar_one_or_none()

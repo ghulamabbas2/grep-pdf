@@ -37,7 +37,9 @@ class LlmCitation(BaseModel):
     """
 
     source: int = Field(description="1-based index of the source excerpt this claim came from.")
-    quote: str = Field(description="A short verbatim sentence from that excerpt supporting the claim.")
+    quote: str = Field(
+        description="A short verbatim sentence from that excerpt supporting the claim."
+    )
 
 
 class AnswerSchema(BaseModel):
