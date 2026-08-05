@@ -27,10 +27,11 @@ ENV UV_COMPILE_BYTECODE=1 \
 
 WORKDIR /app/backend
 
-# Install Python deps from the lockfile first (cached until deps change).
+# Install Python deps from the lockfile first (cached as a layer until deps
+# change). No BuildKit cache mount: Railway's builder rejects unprefixed cache
+# ids, and the layer cache already covers the common case.
 COPY backend/pyproject.toml backend/uv.lock ./
-RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --no-install-project
+RUN uv sync --frozen --no-dev --no-install-project
 
 # App source, Alembic config/migrations, and the entrypoint.
 COPY backend/ ./
