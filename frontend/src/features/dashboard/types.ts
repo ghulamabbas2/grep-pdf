@@ -6,6 +6,8 @@ export type Session = {
   title: string
   pdf_filename: string | null
   preview: string | null
+  /** The cited line from the latest answer, highlighted within the preview. */
+  preview_quote: string | null
   created_at: string
 }
 
@@ -14,6 +16,7 @@ export type Stats = {
   sessions_this_week: number
   questions_asked: number
   answers: number
+  citations_found: number
   pdfs_indexed: number
   pages_indexed: number
 }

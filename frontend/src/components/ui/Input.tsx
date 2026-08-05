@@ -33,7 +33,7 @@ export function Input({
     height: heights[size],
     padding: '0 12px',
     background: 'var(--surface-card)',
-    border: `1px solid ${invalid ? '#DC2626' : 'var(--border-default)'}`,
+    border: `1px solid ${invalid ? 'var(--color-danger)' : 'var(--border-default)'}`,
     borderRadius: variant === 'ask' ? 'var(--radius-lg)' : 'var(--radius-md)',
     transition: 'border-color var(--dur-fast), box-shadow var(--dur-fast)',
     ...style,

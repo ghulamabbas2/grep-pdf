@@ -28,10 +28,8 @@ function buildMetrics(stats: Stats): Metric[] {
       icon: <SearchIcon size={15} />,
     },
     {
-      // Stands in for the design's "citations" card until citations are tracked;
-      // keeps the yellow underline accent that slot carries.
-      label: 'Answers',
-      value: formatCount(stats.answers),
+      label: 'Citations found',
+      value: formatCount(stats.citations_found),
       sub: 'every answer sourced',
       icon: <CheckBadgeIcon size={15} />,
       underline: true,

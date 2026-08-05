@@ -29,6 +29,15 @@ def _preview(content: str | None) -> str | None:
     return text[: _PREVIEW_MAX_CHARS - 1].rstrip() + "…"
 
 
+def _first_quote(citations: list[dict[str, object]] | None) -> str | None:
+    """Return the first citation's quote from the latest answer, if any."""
+    if not citations:
+        return None
+    first = citations[0]
+    quote = first.get("quote") if isinstance(first, dict) else None
+    return quote if isinstance(quote, str) and quote else None
+
+
 def list_sessions(db: DbSession, user_id: str) -> list[SessionOut]:
     """Return the user's sessions, newest first.
 
@@ -39,7 +48,7 @@ def list_sessions(db: DbSession, user_id: str) -> list[SessionOut]:
     # DISTINCT ON (session_id), ordered by newest, yields the latest assistant
     # message per session in a single pass.
     latest_answer = (
-        select(Message.session_id, Message.content)
+        select(Message.session_id, Message.content, Message.citations)
         .where(Message.user_id == user_id, Message.role == "assistant")
         .order_by(Message.session_id, Message.created_at.desc())
         .distinct(Message.session_id)
@@ -47,7 +56,7 @@ def list_sessions(db: DbSession, user_id: str) -> list[SessionOut]:
     )
 
     stmt = (
-        select(Session, Pdf.filename, latest_answer.c.content)
+        select(Session, Pdf.filename, latest_answer.c.content, latest_answer.c.citations)
         .outerjoin(Pdf, Session.pdf_id == Pdf.id)
         .outerjoin(latest_answer, latest_answer.c.session_id == Session.id)
         .where(Session.user_id == user_id)
@@ -61,9 +70,10 @@ def list_sessions(db: DbSession, user_id: str) -> list[SessionOut]:
             title=session.title or filename or "Untitled session",
             pdf_filename=filename,
             preview=_preview(content),
+            preview_quote=_first_quote(citations),
             created_at=session.created_at,
         )
-        for session, filename, content in rows
+        for session, filename, content, citations in rows
     ]
 
 
@@ -92,18 +102,26 @@ def compute_stats(db: DbSession, user_id: str) -> StatsOut:
         .select_from(Message)
         .where(Message.user_id == user_id, Message.role == "assistant")
     )
+    # Sum the length of each answer's citations array (docs/llm.md); JSON-null
+    # rows are excluded so only real citations are counted.
+    citations_found = _count(
+        select(func.coalesce(func.sum(func.jsonb_array_length(Message.citations)), 0)).where(
+            Message.user_id == user_id,
+            Message.role == "assistant",
+            Message.citations.isnot(None),
+        )
+    )
 
     ready_pdfs = (Pdf.user_id == user_id, Pdf.status == "ready")
     pdfs_indexed = _count(select(func.count()).select_from(Pdf).where(*ready_pdfs))
-    pages_indexed = _count(
-        select(func.coalesce(func.sum(Pdf.num_pages), 0)).where(*ready_pdfs)
-    )
+    pages_indexed = _count(select(func.coalesce(func.sum(Pdf.num_pages), 0)).where(*ready_pdfs))
 
     return StatsOut(
         sessions_total=sessions_total,
         sessions_this_week=sessions_this_week,
         questions_asked=questions_asked,
         answers=answers,
+        citations_found=citations_found,
         pdfs_indexed=pdfs_indexed,
         pages_indexed=pages_indexed,
     )

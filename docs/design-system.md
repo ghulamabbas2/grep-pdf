@@ -66,7 +66,7 @@ Hex values are authoritative. The **Tailwind class** column assumes you extend `
 | `--highlight-bg` | `#FEF08A` | `yellow-300` |
 | `--highlight-bar` | `#FACC15` | `yellow-500` |
 
-> **Status / semantic feedback colors** (success, warning, error, info): **TBD** — not defined. The only near-error usage in code is a bare `#DC2626` on invalid inputs; promote to a token before relying on it.
+> **Status / semantic feedback colors**: error/danger is tokenized as `--color-danger` (`#DC2626`) — used for invalid inputs and inline errors. Success, warning, and info remain **TBD** — not defined; add tokens before relying on them.
 
 ### Tailwind config
 

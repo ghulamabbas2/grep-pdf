@@ -4,7 +4,7 @@
 
 import { useAuth } from '@clerk/react'
 import { useMemo } from 'react'
-import { apiFetch, uploadWithProgress } from './api'
+import { apiFetch, fetchBlob, streamSSE, uploadWithProgress } from './api'
 
 export function useApi() {
   const { getToken } = useAuth()
@@ -26,6 +26,19 @@ export function useApi() {
       ): Promise<T> {
         const token = await getToken()
         return uploadWithProgress<T>(path, formData, { token, onProgress })
+      },
+      async stream(
+        path: string,
+        body: unknown,
+        onEvent: (event: string, data: unknown) => void,
+        signal?: AbortSignal,
+      ): Promise<void> {
+        const token = await getToken()
+        return streamSSE(path, body, { token, onEvent, signal })
+      },
+      async getBlob(path: string): Promise<Blob> {
+        const token = await getToken()
+        return fetchBlob(path, { token })
       },
     }),
     // getToken identity is stable per Clerk session.

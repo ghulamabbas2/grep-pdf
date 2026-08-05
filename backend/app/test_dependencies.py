@@ -52,14 +52,10 @@ def test_get_current_user_id_propagates_auth_error(monkeypatch: pytest.MonkeyPat
 # --- get_current_user ----------------------------------------------------
 
 
-def _capture_resolved_email(
-    monkeypatch: pytest.MonkeyPatch, captured: dict[str, object]
-) -> None:
+def _capture_resolved_email(monkeypatch: pytest.MonkeyPatch, captured: dict[str, object]) -> None:
     """Stub `upsert_user` to run the resolver and record what it produced."""
 
-    def _fake_upsert(
-        db: object, user_id: str, resolve_email: Callable[[], str | None]
-    ) -> str:
+    def _fake_upsert(db: object, user_id: str, resolve_email: Callable[[], str | None]) -> str:
         captured["db"] = db
         captured["user_id"] = user_id
         captured["email"] = resolve_email()
@@ -122,9 +118,7 @@ def test_get_current_user_email_none_when_clerk_has_none(
 
 
 def test_get_current_user_ignores_non_string_email(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(
-        deps, "verify_bearer_token", lambda auth: {"sub": "user_7", "email": 999}
-    )
+    monkeypatch.setattr(deps, "verify_bearer_token", lambda auth: {"sub": "user_7", "email": 999})
     monkeypatch.setattr(deps, "fetch_primary_email", lambda user_id: "clerk@example.com")
     captured: dict[str, object] = {}
     _capture_resolved_email(monkeypatch, captured)

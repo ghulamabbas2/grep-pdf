@@ -49,6 +49,9 @@
   --highlight-bg: var(--yellow-300);
   --highlight-bar: var(--yellow-500);
 
+  /* feedback — error/danger (invalid inputs, inline errors) */
+  --color-danger: #dc2626;
+
   /* ---- Typography: families ---- */
   --font-display: 'Space Grotesk', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-body: 'Inter', -apple-system, system-ui, 'Segoe UI', sans-serif;

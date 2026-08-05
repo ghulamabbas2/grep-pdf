@@ -105,6 +105,101 @@ export function uploadWithProgress<T>(
   })
 }
 
+type StreamOptions = {
+  token?: string | null
+  /** Called once per parsed SSE frame with its event name and JSON payload. */
+  onEvent: (event: string, data: unknown) => void
+  signal?: AbortSignal
+}
+
+/**
+ * POST `body` and consume a Server-Sent Events response, invoking `onEvent` for
+ * each frame. Used for streamed chat answers (docs/api.md). `EventSource` can't
+ * send the Clerk `Authorization` header, so this uses `fetch` + a stream reader.
+ * Throws a normalized {@link ApiError} if the response never starts (non-2xx).
+ */
+export async function streamSSE(
+  path: string,
+  body: unknown,
+  { token, onEvent, signal }: StreamOptions,
+): Promise<void> {
+  const headers = new Headers({ 'Content-Type': 'application/json', Accept: 'text/event-stream' })
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`)
+  }
+
+  const response = await fetch(`${API_BASE}${path}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body),
+    signal,
+  })
+
+  if (!response.ok || response.body === null) {
+    const payload: unknown = await response.json().catch(() => null)
+    const { code, message } = extractError(payload, response.status)
+    throw new ApiError(code, message, response.status)
+  }
+
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder()
+  let buffer = ''
+
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    buffer += decoder.decode(value, { stream: true })
+
+    let boundary = buffer.indexOf('\n\n')
+    while (boundary !== -1) {
+      const frame = buffer.slice(0, boundary)
+      buffer = buffer.slice(boundary + 2)
+      dispatchFrame(frame, onEvent)
+      boundary = buffer.indexOf('\n\n')
+    }
+  }
+}
+
+/** Parse one SSE frame (`event:`/`data:` lines) and forward it to `onEvent`. */
+function dispatchFrame(frame: string, onEvent: (event: string, data: unknown) => void): void {
+  let event = 'message'
+  const dataLines: string[] = []
+  for (const line of frame.split('\n')) {
+    if (line.startsWith('event:')) {
+      event = line.slice(6).trim()
+    } else if (line.startsWith('data:')) {
+      dataLines.push(line.slice(5).trim())
+    }
+  }
+  if (dataLines.length === 0) return
+  let data: unknown = null
+  try {
+    data = JSON.parse(dataLines.join('\n'))
+  } catch {
+    data = dataLines.join('\n')
+  }
+  onEvent(event, data)
+}
+
+/**
+ * Fetch a binary resource (e.g. the raw PDF) as a `Blob`, attaching the Clerk
+ * token and normalizing failures to {@link ApiError}. Kept separate from
+ * {@link apiFetch}, which unwraps the JSON `{ data }` envelope.
+ */
+export async function fetchBlob(path: string, { token }: { token?: string | null } = {}): Promise<Blob> {
+  const headers = new Headers()
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`)
+  }
+  const response = await fetch(`${API_BASE}${path}`, { headers })
+  if (!response.ok) {
+    const payload: unknown = await response.json().catch(() => null)
+    const { code, message } = extractError(payload, response.status)
+    throw new ApiError(code, message, response.status)
+  }
+  return response.blob()
+}
+
 function isDataEnvelope<T>(value: unknown): value is DataEnvelope<T> {
   return typeof value === 'object' && value !== null && 'data' in value
 }
